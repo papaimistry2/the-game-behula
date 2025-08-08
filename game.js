@@ -147,16 +147,26 @@ function pointInRect(px, py, r) {
 
 function update() {
   if (gameOver) return;
+
+  // Movement
   if (keys.left) raft.x -= raft.speed;
   if (keys.right) raft.x += raft.speed;
   raft.x = Math.max(0, Math.min(canvas.width - raft.width, raft.x));
-  for (const rock of rocks) rock.y += rock.speed;
 
+  // Speed scaling with top speed limit
+  rockSpeed = Math.min(6, 3 + Math.floor(score / 5)); // max speed = 10
+  for (const rock of rocks) rock.y += rockSpeed;
+
+  // Remove off-screen rocks & add points
   rocks = rocks.filter(rock => {
-    if (rock.y > canvas.height) { score++; return false; }
+    if (rock.y > canvas.height) {
+      score++;
+      return false;
+    }
     return true;
   });
 
+  // Collision check
   const PAD = 12;
   for (const rock of rocks) {
     const a = { x: raft.x + PAD, y: raft.y + PAD, w: raft.width - PAD * 2, h: raft.height - PAD * 2 };
@@ -167,6 +177,8 @@ function update() {
     }
   }
 }
+
+
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
