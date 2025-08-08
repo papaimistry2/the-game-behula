@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  text-align: center;
+  background: #87CEEB; /* sky blue */
+}
+
+canvas {
+  background: #1E90FF; /* sea blue */
+  display: block;
+  margin: 0 auto;
+  border: 2px solid black;
+}
+
+.controls {
+  margin-top: 10px;
+}
+
+button {
+  font-size: 30px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  touch-action: none; /* Prevent scrolling or zooming */
+}
